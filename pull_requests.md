@@ -1,3 +1,4 @@
 - Bruce Tate
+- Julia Ju
 - Navdeep Singh
 - David Khayutin
