@@ -1,12 +1,14 @@
 ## Blind Spots
+
 - [] Strings VS. Char-lists
 - [] Structs & Maps
-- [] Sigils 
+- [] Sigils
 - [] For Comprehensions
 - [] Function definitions and options
 
-
 ## Questions:
-- [] Immutability 
+
+- [] Immutability
 - [] Variables and bindings
 - [] Event Sourcing
+- [] Import alias & requires use
