@@ -79,17 +79,18 @@ defmodule Summer.Counter do
 end
 
 
-@prompt """
-This is a course for an Elixir class. Build a module called Summer.Counter. It should have three functions. new/1 should accept input of type string, and return an integer of type string.
 
-inc/1 should accept an integer, and return an incremeted integer. Similarly, implement dec/1.
+# prompt
+#
+# This is a course for an Elixir class. Build a module called Summer.Counter. It should have three functions. new/1 should accept input of type string, and return an integer of type string.
 
-show/1 should accept an acc (an integer) and return a string that's the acc wrapped by paragraph tags.
+# inc/1 should accept an integer, and return an incremeted integer. Similarly, implement dec/1.
 
-
-
----
+# show/1 should accept an acc (an integer) and return a string that's the acc wrapped by paragraph tags.
 
 
-now write tests
-"""
+
+# ---
+
+
+# now write tests
