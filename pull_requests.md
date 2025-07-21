@@ -1,2 +1,5 @@
 - Bruce Tate
 - Rory Harford
+- Julia Ju
+- Navdeep Singh
+- David Khayutin
