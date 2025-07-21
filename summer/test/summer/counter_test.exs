@@ -41,11 +41,11 @@ defmodule Summer.CounterTest do
     end
 
     test "raises error for non-string input" do
-      assert_raise FunctionClauseError, fn ->
+      assert_raise ArgumentError, fn ->
         Counter.new(123)
       end
 
-      assert_raise FunctionClauseError, fn ->
+      assert_raise ArgumentError, fn ->
         Counter.new(nil)
       end
     end
