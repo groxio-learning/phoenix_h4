@@ -23,6 +23,10 @@ defmodule Summer.Counter do
     String.to_integer(string_input)
   end
 
+  def new(_other) do
+    raise ArgumentError, "Expected a string input"
+  end
+
   @doc """
   Increments an integer by 1.
 
@@ -82,12 +86,12 @@ end
 
 # prompt
 #
-# This is a course for an Elixir class. Build a module called Summer.Counter. It should have three functions. new/1 should accept input of type string, and return an integer of type string.
+# This is a course for an Elixir class. Build a module called Summer.Counter.
+# It should have three functions. new/1 should accept input of type string, and return an integer of type string.
 
-# inc/1 should accept an integer, and return an incremeted integer. Similarly, implement dec/1.
+# inc/1 should accept an integer, and return an incremented integer. Similarly, implement dec/1.
 
 # show/1 should accept an acc (an integer) and return a string that's the acc wrapped by paragraph tags.
-
 
 
 # ---
