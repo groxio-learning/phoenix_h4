@@ -1,2 +1,3 @@
 - Bruce Tate
 - Navdeep Singh
+- David Khayutin
