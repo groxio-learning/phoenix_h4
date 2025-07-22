@@ -5,6 +5,24 @@ defmodule Summer.Server do
 
   # Callbacks
 
+  # Client
+
+  def start_link(count) when is_binary(count) do
+    GenServer.start_link(__MODULE__, count)
+  end
+
+  def inc(pid) do
+    GenServer.cast(pid, :inc)
+  end
+
+  def dec(pid) do
+    GenServer.cast(pid, :dec)
+  end
+
+  def show(pid) do
+    GenServer.call(pid, :show)
+  end
+
   @impl true
   def init(input) do
     count = Counter.new(input)
