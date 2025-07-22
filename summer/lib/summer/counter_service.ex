@@ -2,7 +2,7 @@ defmodule Summer.CounterService do
   @moduledoc """
   A counter service that uses spawn, send, and receive to provide
   a stateful counter service built on top of the Summer.Counter functional core.
-  
+
   Supports subscriptions where clients can receive automatic notifications
   when the counter value changes.
   """
@@ -168,7 +168,7 @@ defmodule Summer.CounterService do
   @doc """
   Subscribe to counter value changes.
   The subscriber will receive {:value_changed, new_value} messages.
-  
+
   ## Examples
 
       iex> pid = Summer.CounterService.start("5")
@@ -186,7 +186,7 @@ defmodule Summer.CounterService do
 
   @doc """
   Unsubscribe from counter value changes.
-  
+
   ## Examples
 
       iex> pid = Summer.CounterService.start("5")
