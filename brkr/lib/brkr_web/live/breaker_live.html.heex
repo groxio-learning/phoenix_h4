@@ -1,3 +1,20 @@
-<p>
-  Hello World!
-</p>
+<pre>
+<%= @show %>
+</pre>
+
+<pre>
+{inspect(@move, pretty: true)}
+</pre>
+
+
+<button
+:for={e <- 1..6}
+phx-click="add-move" 
+phx-value-element={e}>
+{e}
+</button>
+
+
+<button phx-click="remove-move">X</button>
+
+<button phx-click="submit" disabled={length(@move) < 4}>Submit</button>
