@@ -15,4 +15,8 @@ defmodule Breaker.Score do
     white = (total - red) - missing
     %__MODULE__{red: red, white: white}
   end
+
+  def show(%{red: red , white: white}) do
+
+  end
 end
