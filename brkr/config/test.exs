@@ -6,8 +6,8 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :brkr, Brkr.Repo,
-  username: "navdeep",
-  password: "navdeep",
+  username: System.get_env("DB_USERNAME") || "default_username",
+  password: System.get_env("DB_PASSWORD") || "default_password",
   hostname: "localhost",
   database: "brkr_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,

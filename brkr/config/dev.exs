@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :brkr, Brkr.Repo,
-  username: "navdeep",
-  password: "navdeep",
+  username: System.get_env("DB_USERNAME") || "default_username",
+  password: System.get_env("DB_PASSWORD") || "default_password",
   hostname: "localhost",
   database: "brkr_dev",
   stacktrace: true,
