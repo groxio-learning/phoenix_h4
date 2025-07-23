@@ -2,7 +2,7 @@
 
 - [] Strings VS. Char-lists
 - [x] Structs & Maps
-- [] Sigils
+- [x] Sigils
 - [] For Comprehensions
 - [] Function definitions and options
 
