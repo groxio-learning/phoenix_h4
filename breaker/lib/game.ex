@@ -26,7 +26,6 @@ defmodule Breaker.Game do
     def make_guess(game, guess) do
         %{game | guesses: [guess | game.guesses]}
         |> score()
-        |> show()
     end
 
     def score(%{answer: answer, guesses: [guess | _guesses], scores: scores } = game) do
