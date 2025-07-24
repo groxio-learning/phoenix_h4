@@ -3,6 +3,11 @@ defmodule BrkrWeb.GameComponents do
 
   alias Brkr.Game
 
+  ## TODO:
+  ## 1. redirect on game over []
+  ## 2. show answer on lost []
+  ## 3. Start over button on game over []
+
   attr(:game, :any, required: true)
 
   def board(assigns) do
@@ -43,20 +48,35 @@ defmodule BrkrWeb.GameComponents do
     white = assigns.score.white
     colors = List.duplicate(:red, red) ++ List.duplicate(:white, white)
     ~H"""
-      <%= for color <- colors do %> 
-        <.score_tag color={color} />   
+      <%= for color <- colors do %>
+        <.score_tag color={color} />
       <% end %>
-    """    
+    """
+  end
+
+  def row(assigns) do
+    ~H"""
+    <div class="flex items-center gap-4 mb-4">
+        <.guess guess={@guess} />
+        <.score score={@score} />
+      </div>
+    """
   end
 
   defp score_tag(assigns) do
-    score_color_class = case assigns.color do 
+    score_color_class = case assigns.color do
       :red -> "bg-black"
       :white -> "bg-red-200"
       _ -> "bg-gray-300"
     end
     ~H"""
-      <p class={"inline-flex w-4 h-4 rounded-full #{score_color_class}"} /> 
+      <p class={"inline-flex w-4 h-4 rounded-full #{score_color_class}"} />
+    """
+  end
+
+  def guess_move(assigns) do
+     ~H"""
+        <.move_tag value={@move} />
     """
   end
 
@@ -67,6 +87,12 @@ defmodule BrkrWeb.GameComponents do
         <.move_tag value={value} />
       <% end %>
     </div>
+    """
+  end
+
+  def status(assigns) do
+    ~H"""
+    <div class="mb-2 text-[25px]">{Game.status(assigns.game)}</div>
     """
   end
 

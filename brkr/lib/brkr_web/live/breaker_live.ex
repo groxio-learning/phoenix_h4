@@ -38,7 +38,10 @@ defmodule BrkrWeb.BreakerLive do
   end
 
   defp submit(socket) do
-    move = socket.assigns.move
+    move =
+      socket.assigns.move
+      |> Enum.reverse()
+
 
     game =
       socket.assigns.game

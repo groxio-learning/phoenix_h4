@@ -5,7 +5,7 @@ defmodule Brkr.Game do
             guesses: [],
             scores: []
 
-  @attempts 8
+  @attempts 4
 
   def new() do
     %__MODULE__{}
@@ -63,11 +63,11 @@ defmodule Brkr.Game do
     "| #{guess_str} | #{score_str}"
   end
 
-  defp status(%{scores: [%{red: 4} | _scores]}) do
+  def status(%{scores: [%{red: 4} | _scores]}) do
     "You won!"
   end
 
-  defp status(game) do
+  def status(game) do
     if length(game.guesses) >= @attempts do
       "You lost"
     else
