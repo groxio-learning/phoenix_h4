@@ -13,6 +13,7 @@ defmodule BrkrWeb.BreakerLive do
       socket
       |> assign(move: Move.new())
       |> assign(game: game)
+      |> assign(email: socket.assigns.current_user.email)
     }
   end
 
@@ -33,6 +34,8 @@ defmodule BrkrWeb.BreakerLive do
     {:noreply, assign(socket, move: move)}
   end
 
+
+
   def handle_event("submit", _, socket) do
     {:noreply, submit(socket)}
   end
@@ -46,8 +49,21 @@ defmodule BrkrWeb.BreakerLive do
       socket.assigns.game
       |> Game.make_guess(move)
 
-    socket
-    |> assign(game: game)
-    |> assign(move: Move.new())
+
+
+    updated_socket =
+      socket
+      |> assign(game: game)
+      |> assign(move: Move.new())
+
+    case Game.status(game) do
+    :won ->
+      Phoenix.LiveView.redirect(updated_socket, to: ~p"/won")
+    :lost ->
+      Phoenix.LiveView.redirect(updated_socket, to: ~p"/lost")
+      _ ->
+       updated_socket
+    end
+
   end
 end

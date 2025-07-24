@@ -67,8 +67,8 @@ defmodule BrkrWeb.Router do
     live_session :require_authenticated_user,
       on_mount: [{BrkrWeb.UserAuth, :ensure_authenticated}] do
       live "/breaker", BreakerLive, :play
-      live "/won", BreakerLive, :won
-      live "/lost", BreakerLive, :lost
+      live "/won", BreakerWon, :won
+      live "/lost", BreakerLost, :lost
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
     end
