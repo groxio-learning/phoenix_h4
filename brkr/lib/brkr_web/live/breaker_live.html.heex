@@ -4,14 +4,9 @@
 {inspect(@move, pretty: true)}
 </pre>
 
-
-<button
-:for={e <- 1..6}
-phx-click="add-move" 
-phx-value-element={e}>
-{e}
-</button>
-
+<%= for i <- 1..6 do %>
+    <.move_button game={@game} value={i} />   
+<% end %>
 
 <button phx-click="remove-move">X</button>
 
