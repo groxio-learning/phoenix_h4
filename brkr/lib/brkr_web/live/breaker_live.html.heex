@@ -1,19 +1,23 @@
-<.board game={@game} /> 
 
-<pre>
-{inspect(@move, pretty: true)}
-</pre>
+<.status game={@game} />
 
-<div class="flex items-center gap-4">
-    <.guess guess={[4, 2, 3, 4]} />
-    <.score score={%{red: 2, white: 1}} />
+<div class="flex-col gap-4">
+    <.row :for={{score, guess} <- Enum.zip(@game.scores, @game.guesses)} score={score} guess={guess} />
 </div>
+
+<div class="flex mb-2 gap-2">
+    Next Move:
+    <%= for i <- Enum.reverse(@move) do %>
+        <.guess_move move={i} />   
+    <% end %>
+</div>
+
 
 <%= for i <- 1..6 do %>
     <.move_button game={@game} value={i} />   
 <% end %>
 
 
-<button phx-click="remove-move">X</button>
+<button phx-click="remove-move" class="py-2 px-4 bg-gray-300 rounded-lg">X</button>
 
-<button phx-click="submit" disabled={length(@move) != 4}>Submit</button>
+<button phx-click="submit" disabled={length(@move) != 4} class="py-2 px-4 bg-green-300 rounded-lg">Submit</button>
