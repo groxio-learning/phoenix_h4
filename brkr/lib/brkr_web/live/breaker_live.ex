@@ -1,5 +1,6 @@
 defmodule BrkrWeb.BreakerLive do
   use BrkrWeb, :live_view
+  import BrkrWeb.GameComponents
   alias Brkr.Move
   alias Brkr.Game
 
@@ -12,7 +13,6 @@ defmodule BrkrWeb.BreakerLive do
       socket
       |> assign(move: Move.new())
       |> assign(game: game)
-      |> assign(show: Game.show(game))
     }
   end
 
@@ -44,10 +44,8 @@ defmodule BrkrWeb.BreakerLive do
       socket.assigns.game
       |> Game.make_guess(move)
 
-    socket =
-      socket
-      |> assign(game: game)
-      |> assign(show: Game.show(game))
-      |> assign(move: Move.new())
+    socket
+    |> assign(game: game)
+    |> assign(move: Move.new())
   end
 end
