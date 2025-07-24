@@ -5,9 +5,9 @@ defmodule BrkrWeb.BreakerLive do
   alias Brkr.Game
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
     game = Game.new()
-
+    IO.inspect(Map.keys(session))
     {
       :ok,
       socket
@@ -41,7 +41,6 @@ defmodule BrkrWeb.BreakerLive do
     move =
       socket.assigns.move
       |> Enum.reverse()
-
 
     game =
       socket.assigns.game
