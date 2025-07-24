@@ -21,12 +21,6 @@ defmodule BrkrWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-
-    live "/breaker", BreakerLive, :play
-
-    live "/won", BreakerLive, :won
-
-    live "/lost", BreakerLive, :lost
   end
 
   # Other scopes may use custom stacks.
@@ -72,6 +66,9 @@ defmodule BrkrWeb.Router do
 
     live_session :require_authenticated_user,
       on_mount: [{BrkrWeb.UserAuth, :ensure_authenticated}] do
+      live "/breaker", BreakerLive, :play
+      live "/won", BreakerLive, :won
+      live "/lost", BreakerLive, :lost
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
     end
