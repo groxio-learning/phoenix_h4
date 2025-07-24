@@ -19,7 +19,11 @@ defmodule BrkrWeb.Router do
 
     get "/", PageController, :home
 
-    live "/breaker", BreakerLive, :show
+    live "/breaker", BreakerLive, :play
+
+    live "/won", BreakerLive, :won
+
+    live "/lost", BreakerLive, :lost
   end
 
   # Other scopes may use custom stacks.

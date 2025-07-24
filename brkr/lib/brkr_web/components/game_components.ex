@@ -3,7 +3,10 @@ defmodule BrkrWeb.GameComponents do
 
   alias Brkr.Game
 
-  @attempts 4
+  ## TODO:
+  ## 1. redirect on game over []
+  ## 2. show answer on lost []
+  ## 3. Start over button on game over []
 
   attr(:game, :any, required: true)
 
@@ -88,9 +91,8 @@ defmodule BrkrWeb.GameComponents do
   end
 
   def status(assigns) do
-    status = Game.status(assigns.game)
     ~H"""
-    <div class="mb-2 text-[25px]">{status}</div>
+    <div class="mb-2 text-[25px]">{Game.status(assigns.game)}</div>
     """
   end
 
