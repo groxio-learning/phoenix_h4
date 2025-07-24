@@ -30,12 +30,49 @@ defmodule BrkrWeb.GameComponents do
       1 -> "bg-red-500"
       2 -> "bg-blue-500"
       3 -> "bg-green-500"
-      4 -> "bg-yellow-500"
+      4 -> "bg-yellow-400"
       5 -> "bg-purple-500"
-      6 -> "bg-pink-500"
-      _ -> "bg-gray-300 text-black"
+      6 -> "bg-black text-white"
+      _ -> "bg-gray-300"
     end
     "w-8 h-8 #{color_class} rounded-full"
   end
 
+  def score(assigns) do
+    red = assigns.score.red
+    white = assigns.score.white
+    colors = List.duplicate(:red, red) ++ List.duplicate(:white, white)
+    ~H"""
+      <%= for color <- colors do %> 
+        <.score_tag color={color} />   
+      <% end %>
+    """    
+  end
+
+  defp score_tag(assigns) do
+    score_color_class = case assigns.color do 
+      :red -> "bg-black"
+      :white -> "bg-red-200"
+      _ -> "bg-gray-300"
+    end
+    ~H"""
+      <p class={"inline-flex w-4 h-4 rounded-full #{score_color_class}"} /> 
+    """
+  end
+
+  def guess(assigns) do
+    ~H"""
+    <div class="flex gap-2">
+      <%= for value <- @guess do %>
+        <.move_tag value={value} />
+      <% end %>
+    </div>
+    """
+  end
+
+  defp move_tag(assigns) do
+    ~H"""
+     <span class={move_button_class(@value)} />
+    """
+  end
 end
