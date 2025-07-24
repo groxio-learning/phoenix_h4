@@ -4,7 +4,7 @@
 - [x] Structs & Maps
 - [x] Sigils
 - [x] For Comprehensions
-- [] Function definitions and options
+- [x] Function definitions and options
 
 ## Questions:
 

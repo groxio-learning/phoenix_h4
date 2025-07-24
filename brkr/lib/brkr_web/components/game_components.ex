@@ -47,8 +47,9 @@ defmodule BrkrWeb.GameComponents do
     red = assigns.score.red
     white = assigns.score.white
     colors = List.duplicate(:red, red) ++ List.duplicate(:white, white)
+    assigns = assign(assigns, :colors, colors)
     ~H"""
-      <%= for color <- colors do %>
+      <%= for color <- @colors do %>
         <.score_tag color={color} />
       <% end %>
     """
@@ -69,8 +70,9 @@ defmodule BrkrWeb.GameComponents do
       :white -> "bg-red-200"
       _ -> "bg-gray-300"
     end
+    assigns = assign(assigns, :class, score_color_class)
     ~H"""
-      <p class={"inline-flex w-4 h-4 rounded-full #{score_color_class}"} />
+      <p class={"inline-flex w-4 h-4 rounded-full #{@score_color_class}"} />
     """
   end
 
