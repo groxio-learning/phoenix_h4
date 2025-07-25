@@ -8,6 +8,7 @@ defmodule BrkrWeb.BreakerLive do
   def mount(_params, session, socket) do
     game = Game.new()
     IO.inspect(Map.keys(session))
+
     {
       :ok,
       socket
@@ -37,8 +38,6 @@ defmodule BrkrWeb.BreakerLive do
     {:noreply, assign(socket, move: move)}
   end
 
-
-
   def handle_event("submit", _, socket) do
     {:noreply, submit(socket)}
   end
@@ -52,22 +51,20 @@ defmodule BrkrWeb.BreakerLive do
       socket.assigns.game
       |> Game.make_guess(move)
 
-
-
     updated_socket =
       socket
       |> assign(game: game)
       |> assign(move: Move.new())
 
     case Game.status(game) do
-    :won ->
-      push_patch(updated_socket, to: ~p"/won")
-    :lost ->
-      push_patch(updated_socket, to: ~p"/lost")
+      :won ->
+        push_patch(updated_socket, to: ~p"/won")
+
+      :lost ->
+        push_patch(updated_socket, to: ~p"/lost")
+
       _ ->
-       updated_socket
+        updated_socket
     end
   end
-
-
 end

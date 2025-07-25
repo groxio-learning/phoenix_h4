@@ -23,7 +23,7 @@ defmodule BrkrWeb.GameComponents do
 
   def move_button(assigns) do
     ~H"""
-    <button phx-click="add-move" phx-value-element={@value} class={move_button_class(@value)}/>
+    <button phx-click="add-move" phx-value-element={@value} class={move_button_class(@value)} />
     """
   end
 
@@ -108,18 +108,16 @@ defmodule BrkrWeb.GameComponents do
   end
 
   attr :show, :boolean, default: false
+
   def answer_row(assigns) do
+    ~H"""
+    <div :if={@show} class="flex items-center gap-4 mb-4">
+      <.guess guess={@game.answer} />
+    </div>
 
-      ~H"""
-      <div :if={@show} class="flex items-center gap-4 mb-4">
-        <.guess guess={@game.answer} />
-      </div>
-
-      <div :if={!@show}  class="flex items-center gap-4 mb-4">
-
+    <div :if={!@show} class="flex items-center gap-4 mb-4">
       Answer: ? ? ? ?
-      </div>
-      """
+    </div>
+    """
   end
-
 end
