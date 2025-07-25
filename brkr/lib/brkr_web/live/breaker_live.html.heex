@@ -9,7 +9,7 @@
   
   </div>
 
-  <div class="flex-col items-center gap-4 h-[487px] border-2 w-[330px] rounded-md p-4 m-auto">
+  <div class="flex flex-col justify-end gap-4 h-[487px] border-2 w-[330px] rounded-md p-4 m-auto">
     <.row
       :for={{score, guess} <- Enum.zip(@game.scores, @game.guesses)}
       score={score}
