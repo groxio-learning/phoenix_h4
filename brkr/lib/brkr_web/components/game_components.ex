@@ -23,9 +23,7 @@ defmodule BrkrWeb.GameComponents do
 
   def move_button(assigns) do
     ~H"""
-    <button phx-click="add-move" phx-value-element={@value} class={move_button_class(@value)}>
-      {@value}
-    </button>
+    <button phx-click="add-move" phx-value-element={@value} class={move_button_class(@value)}/>
     """
   end
 

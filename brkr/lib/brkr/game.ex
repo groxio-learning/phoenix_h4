@@ -5,7 +5,7 @@ defmodule Brkr.Game do
             guesses: [],
             scores: []
 
-  @attempts 4
+  @attempts 8
 
   def new() do
     %__MODULE__{}

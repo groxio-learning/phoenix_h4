@@ -13,7 +13,7 @@ defmodule BrkrWeb.BreakerLive do
       socket
       |> assign(move: Move.new())
       |> assign(game: game)
-      |> assign(email: socket.assigns.current_user.email)
+
     }
   end
 
