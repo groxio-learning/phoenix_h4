@@ -3,6 +3,7 @@ defmodule BrkrWeb.BreakerLive do
   import BrkrWeb.GameComponents
   alias Brkr.Move
   alias Brkr.Game
+  alias Brkr.Scoreboard
 
   @impl true
   def mount(_params, session, socket) do
@@ -14,6 +15,7 @@ defmodule BrkrWeb.BreakerLive do
       socket
       |> assign(move: Move.new())
       |> assign(game: game)
+      |> assign(start_time: DateTime.utc_now())
     }
   end
 
@@ -55,16 +57,32 @@ defmodule BrkrWeb.BreakerLive do
       socket
       |> assign(game: game)
       |> assign(move: Move.new())
-
+      
     case Game.status(game) do
       :won ->
-        push_patch(updated_socket, to: ~p"/won")
-
+        process_high_score(updated_socket)
       :lost ->
-        push_patch(updated_socket, to: ~p"/lost")
+        updated_socket 
+        |> assign(end_time: DateTime.utc_now())
+        |> push_patch(to: ~p"/lost")
 
       _ ->
         updated_socket
     end
+  end
+
+  defp process_high_score(updated_socket) do
+    end_time = DateTime.utc_now()
+    high_score_params = %{
+      initials: String.slice(updated_socket.assigns.current_user.email, 0, 3),
+      start_time: updated_socket.assigns.start_time,
+      stop_time: end_time,
+      user_id: updated_socket.assigns.current_user.id
+    }
+    
+    Scoreboard.create_high_score(updated_socket.assigns.current_user, high_score_params)
+      updated_socket 
+      |> assign(end_time: end_time)
+      |> push_patch(to: ~p"/won")
   end
 end

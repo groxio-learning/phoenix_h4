@@ -18,7 +18,8 @@ defmodule Brkr.Scoreboard do
 
   """
   def list_high_scores do
-    Repo.all(HighScore)
+    query = from p in HighScore, preload: [:user]
+    Repo.all(query)
   end
 
   @doc """

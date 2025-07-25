@@ -15,6 +15,7 @@
   <:col :let={{_id, high_score}} label="Initials">{high_score.initials}</:col>
   <:col :let={{_id, high_score}} label="Start time">{high_score.start_time}</:col>
   <:col :let={{_id, high_score}} label="Stop time">{high_score.stop_time}</:col>
+  <:col :let={{_id, high_score}} label="Email">{high_score.user.email}</:col>
   <:action :let={{_id, high_score}}>
     <div class="sr-only">
       <.link navigate={~p"/high_scores/#{high_score}"}>Show</.link>
