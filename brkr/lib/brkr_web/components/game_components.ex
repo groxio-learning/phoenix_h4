@@ -1,14 +1,13 @@
 defmodule BrkrWeb.GameComponents do
   use Phoenix.Component
 
+  use Phoenix.VerifiedRoutes, endpoint: BrkrWeb.Endpoint, router: BrkrWeb.Router
+
+  import BrkrWeb.CoreComponents 
+  import Phoenix.VerifiedRoutes
   alias Brkr.Game
-
-  ## TODO:
-  ## 1. redirect on game over [x]
-  ## 2. show answer on lost []
-  ## 3. Start over button on game over [x]
-  ## 4. Show welcome email [x]
-
+  alias Phoenix.LiveView.JS
+  
   attr(:game, :any, required: true)
 
   def board(assigns) do
@@ -108,7 +107,7 @@ defmodule BrkrWeb.GameComponents do
   end
 
   attr :show, :boolean, default: false
-
+  attr :game, Game, required: true
   def answer_row(assigns) do
     ~H"""
     <div :if={@show} class="flex items-center gap-4 mb-4">
@@ -118,6 +117,27 @@ defmodule BrkrWeb.GameComponents do
     <div :if={!@show} class="flex items-center gap-4 mb-4">
       Answer: ? ? ? ?
     </div>
+    """
+  end
+
+  attr :streams, :list, required: true
+  def high_scores(assigns) do
+    ~H"""      
+     <.header>
+      High scores
+    </.header>
+
+    <.table
+        id="high_scores"
+        rows={@streams.high_scores}
+        row_click={fn {_id, high_score} -> JS.navigate(~p"/high_scores/#{high_score}") end}
+      >
+        <:col :let={{_id, high_score}} label="Initials">{high_score.user.initials}</:col>
+        <:col :let={{_id, high_score}} label="Score time">
+          {Integer.to_string(div(high_score.score_time || 0, 60)) <> ":" <> Integer.to_string(rem(high_score.score_time || 0, 60))}
+        </:col>
+        <:col :let={{_id, high_score}} label="Date">{NaiveDateTime.to_date(high_score.stop_time)}</:col>      
+    </.table>
     """
   end
 end
