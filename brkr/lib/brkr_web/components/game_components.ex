@@ -4,10 +4,10 @@ defmodule BrkrWeb.GameComponents do
   alias Brkr.Game
 
   ## TODO:
-  ## 1. redirect on game over []
+  ## 1. redirect on game over [x]
   ## 2. show answer on lost []
-  ## 3. Start over button on game over []
-  ## 4. Show welcome email
+  ## 3. Start over button on game over [x]
+  ## 4. Show welcome email [x]
 
   attr(:game, :any, required: true)
 
@@ -23,9 +23,7 @@ defmodule BrkrWeb.GameComponents do
 
   def move_button(assigns) do
     ~H"""
-    <button phx-click="add-move" phx-value-element={@value} class={move_button_class(@value)}>
-      {@value}
-    </button>
+    <button phx-click="add-move" phx-value-element={@value} class={move_button_class(@value)} />
     """
   end
 
@@ -77,7 +75,7 @@ defmodule BrkrWeb.GameComponents do
     assigns = assign(assigns, :class, score_color_class)
 
     ~H"""
-    <p class={"inline-flex w-4 h-4 rounded-full #{@score_color_class}"} />
+    <p class={"inline-flex w-4 h-4 rounded-full #{@class}"} />
     """
   end
 
@@ -106,6 +104,20 @@ defmodule BrkrWeb.GameComponents do
   defp move_tag(assigns) do
     ~H"""
     <span class={move_button_class(@value)} />
+    """
+  end
+
+  attr :show, :boolean, default: false
+
+  def answer_row(assigns) do
+    ~H"""
+    <div :if={@show} class="flex items-center gap-4 mb-4">
+      <.guess guess={@game.answer} />
+    </div>
+
+    <div :if={!@show} class="flex items-center gap-4 mb-4">
+      Answer: ? ? ? ?
+    </div>
     """
   end
 end
