@@ -17,10 +17,12 @@ defmodule Brkr.Scoreboard do
       [%HighScore{}, ...]
 
   """
-  def list_high_scores do
-    query = from p in HighScore, order_by: [asc: p.score_time], limit: 5, preload: [:user]
+  def list_high_scores(limit \\ 5) do
+    query = from p in HighScore, order_by: [asc: p.score_time], limit: ^limit, preload: [:user]
     Repo.all(query)
   end
+
+  def topic, do: "scoreboard"
 
   @doc """
   Gets a single high_score.
@@ -52,15 +54,22 @@ defmodule Brkr.Scoreboard do
   """
 
   def create_high_score(attrs \\ %{}) do
-    %HighScore{}
-    |> HighScore.changeset(attrs)
-    |> Repo.insert()
+    {:ok, high_score} =
+      %HighScore{}
+      |> HighScore.changeset(attrs)
+      |> Repo.insert()
+    Phoenix.PubSub.broadcast(Brkr.PubSub, topic(), {:high_score_created, high_score})
+    high_score
   end
 
   def create_high_score(user, attrs) do
-    %HighScore{user_id: user.id}
-    |> HighScore.changeset(attrs)
-    |> Repo.insert()
+    {:ok, high_score} =
+      %HighScore{user_id: user.id}
+      |> HighScore.changeset(attrs)
+      |> Repo.insert()
+
+    Phoenix.PubSub.broadcast(Brkr.PubSub, topic(), {:high_score_created, high_score})
+    high_score
   end
 
   @doc """

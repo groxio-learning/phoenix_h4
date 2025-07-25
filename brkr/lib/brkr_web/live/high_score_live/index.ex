@@ -3,11 +3,15 @@ defmodule BrkrWeb.HighScoreLive.Index do
 
   alias Brkr.Scoreboard
   alias Brkr.Scoreboard.HighScore
+  alias Phoenix.PubSub
   import BrkrWeb.GameComponents 
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :high_scores, Scoreboard.list_high_scores())}
+    if connected?(socket) do
+      PubSub.subscribe(Brkr.PubSub, Scoreboard.topic())
+    end
+    {:ok, stream(socket, :high_scores, Scoreboard.list_high_scores(15), reset: true)}
   end
 
   @impl true
@@ -36,6 +40,11 @@ defmodule BrkrWeb.HighScoreLive.Index do
   @impl true
   def handle_info({BrkrWeb.HighScoreLive.FormComponent, {:saved, high_score}}, socket) do
     {:noreply, stream_insert(socket, :high_scores, high_score)}
+  end
+
+  def handle_info({:high_score_created, _hs}, socket) do
+    socket = stream(socket, :high_scores, Scoreboard.list_high_scores(15), reset: true)
+    {:noreply, socket}
   end
 
   @impl true
