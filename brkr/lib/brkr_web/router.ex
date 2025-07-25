@@ -61,6 +61,7 @@ defmodule BrkrWeb.Router do
     post "/users/log_in", UserSessionController, :create
   end
 
+
   scope "/", BrkrWeb do
     pipe_through [:browser, :require_authenticated_user]
 
@@ -71,6 +72,12 @@ defmodule BrkrWeb.Router do
       live "/lost", BreakerLive, :lost
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+
+      live "/high_scores", HighScoreLive.Index, :index
+      live "/high_scores/new", HighScoreLive.Index, :new
+      live "/high_scores/:id/edit", HighScoreLive.Index, :edit
+      live "/high_scores/:id", HighScoreLive.Show, :show
+      live "/high_scores/:id/show/edit", HighScoreLive.Show, :edit
     end
   end
 

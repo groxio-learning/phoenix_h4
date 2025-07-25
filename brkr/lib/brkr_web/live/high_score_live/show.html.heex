@@ -1,0 +1,28 @@
+<.header>
+  High score {@high_score.id}
+  <:subtitle>This is a high_score record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/high_scores/#{@high_score}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit high_score</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Initials">{@high_score.initials}</:item>
+  <:item title="Start time">{@high_score.start_time}</:item>
+  <:item title="Stop time">{@high_score.stop_time}</:item>
+</.list>
+
+<.back navigate={~p"/high_scores"}>Back to high_scores</.back>
+
+<.modal :if={@live_action == :edit} id="high_score-modal" show on_cancel={JS.patch(~p"/high_scores/#{@high_score}")}>
+  <.live_component
+    module={BrkrWeb.HighScoreLive.FormComponent}
+    id={@high_score.id}
+    title={@page_title}
+    action={@live_action}
+    high_score={@high_score}
+    patch={~p"/high_scores/#{@high_score}"}
+  />
+</.modal>
