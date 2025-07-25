@@ -3,6 +3,7 @@ defmodule BrkrWeb.HighScoreLive.Index do
 
   alias Brkr.Scoreboard
   alias Brkr.Scoreboard.HighScore
+  import BrkrWeb.GameComponents 
 
   @impl true
   def mount(_params, _session, socket) do

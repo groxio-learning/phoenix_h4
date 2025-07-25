@@ -18,7 +18,7 @@ defmodule Brkr.Scoreboard do
 
   """
   def list_high_scores do
-    query = from p in HighScore, order_by: [asc: p.score_time], preload: [:user]
+    query = from p in HighScore, order_by: [asc: p.score_time], limit: 5, preload: [:user]
     Repo.all(query)
   end
 

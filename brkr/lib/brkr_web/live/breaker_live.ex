@@ -19,6 +19,7 @@ defmodule BrkrWeb.BreakerLive do
     }
   end
 
+  @impl true
   def handle_params(_params, _uri, socket) do
     {:noreply, socket}
   end
@@ -74,7 +75,7 @@ defmodule BrkrWeb.BreakerLive do
   defp process_high_score(updated_socket) do
     end_time = DateTime.utc_now()
     high_score_params = %{
-      initials: String.slice(updated_socket.assigns.current_user.email, 0, 3),
+      initials: updated_socket.assigns.current_user.initials,
       start_time: updated_socket.assigns.start_time,
       stop_time: end_time,
       user_id: updated_socket.assigns.current_user.id,
@@ -83,6 +84,7 @@ defmodule BrkrWeb.BreakerLive do
     
     Scoreboard.create_high_score(updated_socket.assigns.current_user, high_score_params)
       updated_socket 
+      |> stream(:high_scores, Scoreboard.list_high_scores())
       |> assign(end_time: end_time)
       |> push_patch(to: ~p"/won")
   end
