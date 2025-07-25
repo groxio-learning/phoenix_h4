@@ -106,4 +106,20 @@ defmodule BrkrWeb.GameComponents do
     <span class={move_button_class(@value)} />
     """
   end
+
+  attr :show, :boolean, default: false
+  def answer_row(assigns) do
+
+      ~H"""
+      <div :if={@show} class="flex items-center gap-4 mb-4">
+        <.guess guess={@game.answer} />
+      </div>
+
+      <div :if={!@show}  class="flex items-center gap-4 mb-4">
+
+      Answer: ? ? ? ?
+      </div>
+      """
+  end
+
 end

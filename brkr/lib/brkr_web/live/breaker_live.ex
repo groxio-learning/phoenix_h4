@@ -13,8 +13,11 @@ defmodule BrkrWeb.BreakerLive do
       socket
       |> assign(move: Move.new())
       |> assign(game: game)
-
     }
+  end
+
+  def handle_params(_params, _uri, socket) do
+    {:noreply, socket}
   end
 
   @impl true
@@ -58,12 +61,13 @@ defmodule BrkrWeb.BreakerLive do
 
     case Game.status(game) do
     :won ->
-      Phoenix.LiveView.redirect(updated_socket, to: ~p"/won")
+      push_patch(updated_socket, to: ~p"/won")
     :lost ->
-      Phoenix.LiveView.redirect(updated_socket, to: ~p"/lost")
+      push_patch(updated_socket, to: ~p"/lost")
       _ ->
        updated_socket
     end
-
   end
+
+
 end

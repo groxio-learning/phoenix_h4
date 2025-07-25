@@ -1,4 +1,7 @@
-<div class="flex flex-col justify-center items-center gap-4">
+
+
+
+<div :if={@live_action == :play} class="flex flex-col justify-center items-center gap-4">
   <div>
     <h1 class="text-[40px] text-center font-bold">Breaker!</h1>
     <div>Welcome: {@current_user.email}</div>
@@ -6,8 +9,10 @@
 
   <div>
     <.status game={@game} />
-  
   </div>
+
+  <.answer_row  show={false} game={@game}/>
+
 
   <div class="flex flex-col justify-end gap-4 h-[487px] border-2 w-[330px] rounded-md p-4 m-auto">
     <.row
@@ -30,11 +35,35 @@
   </div>
 
   <div >
-    <button phx-click="remove-move" class="py-2 px-4 bg-gray-300 rounded-lg">X</button>
+    <button phx-click="remove-move" disabled={length(@move) < 1} class="py-2 px-4 bg-gray-300 rounded-lg">X</button>
 
     <button phx-click="submit" disabled={length(@move) != 4} class="py-2 px-4 bg-green-300 rounded-lg">
       Submit
     </button>
   </div>
 
+</div>
+
+<div :if={@live_action == :lost} class="flex flex-col justify-center items-center gap-4">
+    <div class="text-[36px] font-bold">You Lost</div>
+    <.answer_row  show={true} game={@game}/>
+
+    <.link
+        href={~p"/breaker"}
+        class="py-2 px-4 bg-green-300 rounded-lg w-fit" 
+        >
+        Play Again!
+    </.link>
+</div>
+
+<div :if={@live_action == :won} class="flex flex-col justify-center items-center gap-4">
+    <div class="text-[36px] font-bold">You Won 🎊 🎉</div>
+    <.answer_row  show={true} game={@game}/>
+
+    <.link
+        href={~p"/breaker"}
+        class="py-2 px-4 bg-green-300 rounded-lg w-fit" 
+        >
+        Play Again!
+    </.link>
 </div>
