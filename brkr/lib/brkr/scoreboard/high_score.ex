@@ -8,6 +8,7 @@ defmodule Brkr.Scoreboard.HighScore do
     field :initials, :string
     field :start_time, :naive_datetime
     field :stop_time, :naive_datetime
+    field :score_time, :integer
     belongs_to :user, User
 
     timestamps(type: :utc_datetime)
@@ -16,7 +17,7 @@ defmodule Brkr.Scoreboard.HighScore do
   @doc false
   def changeset(high_score, attrs) do
     high_score
-    |> cast(attrs, [:user_id, :initials, :start_time, :stop_time])
-    |> validate_required([:user_id, :initials, :start_time, :stop_time])
+    |> cast(attrs, [:user_id, :initials, :start_time, :stop_time, :score_time])
+    |> validate_required([:user_id, :initials, :start_time, :stop_time, :score_time])
   end
 end

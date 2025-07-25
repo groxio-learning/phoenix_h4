@@ -77,7 +77,8 @@ defmodule BrkrWeb.BreakerLive do
       initials: String.slice(updated_socket.assigns.current_user.email, 0, 3),
       start_time: updated_socket.assigns.start_time,
       stop_time: end_time,
-      user_id: updated_socket.assigns.current_user.id
+      user_id: updated_socket.assigns.current_user.id,
+      score_time: NaiveDateTime.diff(end_time, updated_socket.assigns.start_time, :second)
     }
     
     Scoreboard.create_high_score(updated_socket.assigns.current_user, high_score_params)
